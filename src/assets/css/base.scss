@@ -1,0 +1,11 @@
+$scout-navy: #084d6d;
+
+nav.navbar {
+  background-color: $scout-navy !important;
+}
+
+.dropdown {
+  button {
+    text-transform: capitalize;
+  }
+}
