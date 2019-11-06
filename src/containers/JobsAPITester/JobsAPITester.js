@@ -10,16 +10,18 @@ import sortObject from '../../helpers/sortObject';
 
 const JobsAPITester = props => {
   const [apiKey, setApiKey] = useState('');
-  const [country, setCountry] = useState('australia');
-  const [apiEndPoint, setApiEndPoint] = useState({
-    'australia': 'https://applynow.net.au/api/v2/jobs/?recursive=true&current=true',
-    'canada': 'https://scouterecruit.net/api/v2/jobs/?recursive=true&current=true'
+  const [selectedCountry, setSelectedCountry] = useState('australia');
+  const [domain, setDomain] = useState({
+    'australia': 'https://applynow.net.au/api/v2/jobs',
+    'canada': 'https://scouterecruit.net/api/v2/jobs'
   });
+  const [params, setParams] = useState('');
+  const [apiEndPoint, setApiEndPoint] = useState(domain[selectedCountry] + params);
   const [jobs, setJobs] = useState([]);
   const [error, setError] = useState('');
 
   const validateClickHandler = () => {
-    axios.get(apiEndPoint[country], {
+    axios.get(domain[selectedCountry], {
       'headers': {
         'Content-Type': 'application/json',
         'X-api-authenticate': apiKey
@@ -34,6 +36,12 @@ const JobsAPITester = props => {
     });
   }
 
+
+  const apiEndPointHandler = (country) => {
+    setSelectedCountry(country);
+    setApiEndPoint(domain[country] + params);
+  }
+
   const joblist = jobs.map((job) => {
     return <li key={job.reference}><a href={job.public_url} target="_blank" rel="noreferrer noopener">{job.title}</a> {job.reference}</li>
   });
@@ -45,12 +53,12 @@ const JobsAPITester = props => {
         <DropdownButton
           as={InputGroup.Prepend}
           variant="outline-secondary"
-          title={country}
+          title={selectedCountry}
         >
-          <Dropdown.Item href="#" onClick={() => { setCountry("australia"); setApiKey(''); setJobs([]); setError('') }}>Australia</Dropdown.Item>
-          <Dropdown.Item href="#" onClick={() => { setCountry("canada"); setApiKey(''); setJobs([]); setError('') }}>Canada</Dropdown.Item>
+          <Dropdown.Item href="#" onClick={() => { apiEndPointHandler("australia"); setApiKey(''); setJobs([]); setError('') }}>Australia</Dropdown.Item>
+          <Dropdown.Item href="#" onClick={() => { apiEndPointHandler("canada"); setApiKey(''); setJobs([]); setError('') }}>Canada</Dropdown.Item>
         </DropdownButton>
-        <FormControl aria-describedby="" value={apiEndPoint[country]} onChange={() => { }} />
+        <FormControl aria-describedby="" value={apiEndPoint} onChange={() => { }} />
       </InputGroup>
 
       <label htmlFor="">API Key</label>
