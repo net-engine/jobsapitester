@@ -78,6 +78,7 @@ const JobsAPITester = props => {
         </InputGroup.Append>
       </InputGroup>
 
+      {loading ? 'Validating...' : null}
       {dirty && !loading ? jobs.length + ' Jobs' : ''}
       <ul>
         {!loading ? joblist : null}
