@@ -25,7 +25,7 @@ const JobsAPITester = props => {
   const validateClickHandler = () => {
     setLoading(true);
     setDirty(true);
-    axios.get(domain[selectedCountry], {
+    axios.get(apiEndPoint, {
       'headers': {
         'Content-Type': 'application/json',
         'X-api-authenticate': apiKey
@@ -80,7 +80,7 @@ const JobsAPITester = props => {
 
       {dirty && !loading ? jobs.length + ' Jobs' : ''}
       <ul>
-        {joblist}
+        {!loading ? joblist : null}
       </ul>
       {error !== "" ?
         <Alert variant="danger">
