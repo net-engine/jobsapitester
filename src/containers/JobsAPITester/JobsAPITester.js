@@ -74,7 +74,7 @@ const JobsAPITester = props => {
       <InputGroup className="mb-3">
         <FormControl aria-describedby="" value={apiKey} onChange={(e) => { setApiKey(e.target.value); setJobs([]); setError(''); }} />
         <InputGroup.Append>
-          <Button variant="primary" className={loading ? 'disabled' : ''} onClick={() => validateClickHandler()}>Validate</Button>
+          <Button variant="primary" className={apiKey === '' || loading ? 'disabled' : ''} onClick={() => validateClickHandler()}>Validate</Button>
         </InputGroup.Append>
       </InputGroup>
 
