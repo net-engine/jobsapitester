@@ -48,7 +48,7 @@ const JobsAPITester = props => {
   }
 
   const joblist = jobs.map((job) => {
-    return <li key={job.reference}><a href={job.public_url} target="_blank" rel="noreferrer noopener">{job.title}</a> {job.reference}</li>
+    return <li key={job.reference}><a href={job.public_url} target="_blank" rel="noreferrer noopener">{job.title}</a> {job.reference} | Status: {job.state}</li>
   });
 
   const changeEndPoint = (e) => {
